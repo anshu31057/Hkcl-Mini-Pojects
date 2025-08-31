@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anshu Beniwal - 3D Interactive Portfolio</title>
+    <meta name="description" content="Senior Software Engineer & UX Designer - 3D Interactive Portfolio showcasing Java, JavaFX, and web development expertise">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Three.js Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    
+    <!-- GSAP Animation Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-spinner-3d">
+            <div class="spinner-cube"></div>
+        </div>
+        <p class="loading-text">Initializing 3D Portfolio...</p>
+        <div class="loading-progress">
+            <div class="progress-bar" id="loadingProgress"></div>
+        </div>
+    </div>
+
+    <!-- 3D Background Container -->
+    <div id="threejs-container" class="threejs-container"></div>
+
+    <!-- Theme Toggle Button -->
+    <button class="theme-toggle-3d" id="themeToggle" aria-label="Toggle dark/light theme">
+        <div class="toggle-sphere">
+            <i class="fas fa-moon"></i>
+        </div>
+    </button>
+
+    <!-- Language Toggle -->
+    <!-- <div class="language-toggle-3d">
+        <div class="lang-container">
+            <button class="lang-btn-3d active" data-lang="en">EN</button>
+            <button class="lang-btn-3d" data-lang="hi">हि</button>
+        </div>
+    </div> -->
+
+    <!-- Navigation with Glassmorphism -->
+    <nav class="navbar-3d" id="navbar">
+        <div class="nav-container-3d">
+            <div class="nav-brand-3d">
+                <div class="logo-3d">
+                    <span class="logo-text">AB</span>
+                    <div class="logo-glow"></div>
+                </div>
+            </div>
+            
+            <div class="nav-menu-3d" id="navMenu">
+                <a href="#home" class="nav-link-3d active" data-section="home" data-key="nav.home">
+                    <span class="link-text">Home</span>
+                    <div class="link-underline"></div>
+                </a>
+                <a href="#about" class="nav-link-3d" data-section="about" data-key="nav.about">
+                    <span class="link-text">About</span>
+                    <div class="link-underline"></div>
+                </a>
+                <a href="#skills" class="nav-link-3d" data-section="skills" data-key="nav.skills">
+                    <span class="link-text">Skills</span>
+                    <div class="link-underline"></div>
+                </a>
+                <a href="#projects" class="nav-link-3d" data-section="projects" data-key="nav.projects">
+                    <span class="link-text">Projects</span>
+                    <div class="link-underline"></div>
+                </a>
+                <a href="#resume" class="nav-link-3d" data-section="resume" data-key="nav.resume">
+                    <span class="link-text">Resume</span>
+                    <div class="link-underline"></div>
+                </a>
+                <a href="#contact" class="nav-link-3d" data-section="contact" data-key="nav.contact">
+                    <span class="link-text">Contact</span>
+                    <div class="link-underline"></div>
+                </a>
+            </div>
+            
+            <div class="nav-toggle-3d" id="navToggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+        <div class="nav-glow"></div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Home Section with 3D Hero -->
+        <section id="home" class="section home-section-3d active">
+            <div class="container">
+                <div class="hero-content-3d">
+                    <div class="hero-text-3d">
+                        <h1 class="hero-greeting" data-key="home.greeting">Hello, I'm</h1>
+                        <h2 class="hero-name-3d">
+                            <span class="name-letter" data-letter="A">A</span>
+                            <span class="name-letter" data-letter="n">n</span>
+                            <span class="name-letter" data-letter="s">s</span>
+                            <span class="name-letter" data-letter="h">h</span>
+                            <span class="name-letter" data-letter="u">u</span>
+                            <span class="name-letter" data-letter=" "> </span>
+                            <span class="name-letter" data-letter="B">B</span>
+                            <span class="name-letter" data-letter="e">e</span>
+                            <span class="name-letter" data-letter="n">n</span>
+                            <span class="name-letter" data-letter="i">i</span>
+                            <span class="name-letter" data-letter="w">w</span>
+                            <span class="name-letter" data-letter="a">a</span>
+                            <span class="name-letter" data-letter="l">l</span>
+                        </h2>
+                        <div class="hero-role-3d">
+                            <span class="typewriter-3d" id="typewriter"></span>
+                            <span class="cursor-3d">|</span>
+                        </div>
+                        <p class="hero-description-3d" data-key="home.description">
+                            Passionate software engineer with expertise in Java, JavaFX, and modern web technologies. 
+                            I create immersive 3D experiences and user-centric applications that solve real-world problems.
+                        </p>
+                        
+                        <div class="hero-actions-3d">
+                            <button class="btn-3d btn-primary-3d hero-btn" data-section="projects" data-key="home.viewWork">
+                                <span class="btn-content">
+                                    <i class="fas fa-briefcase"></i>
+                                    View My Work
+                                </span>
+                                <div class="btn-glow"></div>
+                            </button>
+                            <button class="btn-3d btn-secondary-3d hero-btn" data-section="contact" data-key="home.getInTouch">
+                                <span class="btn-content">
+                                    <i class="fas fa-envelope"></i>
+                                    Get In Touch
+                                </span>
+                                <div class="btn-glow"></div>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="hero-visual-3d">
+                        <div class="avatar-frame-3d" id="avatarFrame">
+                            <div class="frame-ring outer-ring"></div>
+                            <div class="frame-ring middle-ring"></div>
+                            <div class="frame-ring inner-ring"></div>
+                            <div class="avatar-container">
+                                <div class="avatar-3d">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                            </div>
+                            <div class="frame-particles"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section with 3D Cards -->
+        <section id="about" class="section about-section-3d">
+            <div class="container">
+                <h2 class="section-title-3d" data-key="about.title">About Me</h2>
+                
+                <div class="about-content-3d">
+                    <div class="about-card-3d">
+                        <div class="card-glow"></div>
+                        <div class="card-content">
+                            <div class="profile-section">
+                                <div class="profile-image-3d">
+                                    <div class="image-frame">
+                                        <i class="fas fa-user"></i>
+                                    </div>
+                                </div>
+                                
+                                <div class="profile-text">
+                                    <h3>Anshu Beniwal</h3>
+                                    <p class="profile-title" data-key="profile.title">Senior Software Engineer & 3D Designer</p>
+                                    <p class="profile-bio" data-key="about.bio">
+                                        Passionate software engineer with expertise in Java, JavaFX, and modern web technologies. 
+                                        I love creating immersive 3D experiences and user-centric applications that solve real-world problems.
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <div class="contact-details-3d">
+                                <div class="detail-item-3d">
+                                    <i class="fas fa-envelope"></i>
+                                    <span>anshu.beniwal@example.com</span>
+                                </div>
+                                <div class="detail-item-3d">
+                                    <i class="fas fa-phone"></i>
+                                    <span>+91-9876543210</span>
+                                </div>
+                                <div class="detail-item-3d">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>Bangalore, India</span>
+                                </div>
+                            </div>
+                            
+                            <div class="social-links-3d">
+                                <a href="https://github.com/anshu-beniwal" target="_blank" class="social-sphere" aria-label="GitHub">
+                                    <i class="fab fa-github"></i>
+                                    <div class="sphere-glow"></div>
+                                </a>
+                                <a href="https://linkedin.com/in/anshu-beniwal" target="_blank" class="social-sphere" aria-label="LinkedIn">
+                                    <i class="fab fa-linkedin"></i>
+                                    <div class="sphere-glow"></div>
+                                </a>
+                                <a href="https://anshu-beniwal.dev" target="_blank" class="social-sphere" aria-label="Website">
+                                    <i class="fas fa-globe"></i>
+                                    <div class="sphere-glow"></div>
+                                </a>
+                                <a href="mailto:anshu.beniwal@example.com" class="social-sphere" aria-label="Email">
+                                    <i class="fas fa-envelope"></i>
+                                    <div class="sphere-glow"></div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section with 3D Progress Rings -->
+        <section id="skills" class="section skills-section-3d">
+            <div class="container">
+                <h2 class="section-title-3d" data-key="skills.title">Skills & Expertise</h2>
+                
+                <div class="skills-filter-3d">
+                    <button class="filter-btn-3d active" data-filter="all" data-key="skills.all">All</button>
+                    <button class="filter-btn-3d" data-filter="programming" data-key="skills.programming">Programming</button>
+                    <button class="filter-btn-3d" data-filter="database" data-key="skills.database">Database</button>
+                    <button class="filter-btn-3d" data-filter="tools" data-key="skills.tools">Tools</button>
+                    <button class="filter-btn-3d" data-filter="security" data-key="skills.security">Security</button>
+                </div>
+                
+                <div class="skills-grid-3d" id="skillsGrid">
+                    <!-- Skills will be dynamically populated with 3D progress rings -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section with 3D Showcase -->
+        <section id="projects" class="section projects-section-3d">
+            <div class="container">
+                <h2 class="section-title-3d" data-key="projects.title">Featured Projects</h2>
+                
+                <div class="projects-controls-3d">
+                    <div class="search-container-3d">
+                        <input type="text" id="projectSearch" class="search-input-3d" data-key-placeholder="projects.search" placeholder="Search projects...">
+                        <i class="fas fa-search search-icon-3d"></i>
+                        <div class="input-glow"></div>
+                    </div>
+                    
+                    <div class="projects-filter-3d">
+                        <button class="filter-btn-3d active" data-filter="all" data-key="projects.all">All</button>
+                        <button class="filter-btn-3d" data-filter="web" data-key="projects.web">Web</button>
+                        <button class="filter-btn-3d" data-filter="app" data-key="projects.app">App</button>
+                        <button class="filter-btn-3d" data-filter="other" data-key="projects.other">Other</button>
+                    </div>
+                    
+                    <div class="view-toggle-3d">
+                        <button class="view-btn-3d active" data-view="grid" aria-label="Grid view">
+                            <i class="fas fa-th"></i>
+                        </button>
+                        <button class="view-btn-3d" data-view="list" aria-label="List view">
+                            <i class="fas fa-list"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="projects-grid-3d" id="projectsGrid">
+                    <!-- Projects will be dynamically populated with 3D cards -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Resume Section with 3D Viewer -->
+        <section id="resume" class="section resume-section-3d">
+            <div class="container">
+                <h2 class="section-title-3d" data-key="resume.title">Resume</h2>
+                
+                <div class="resume-content-3d">
+                    <div class="resume-card-3d">
+                        <div class="card-glow"></div>
+                        <div class="resume-header-3d">
+                            <div class="pdf-icon-3d">
+                                <i class="fas fa-file-pdf"></i>
+                                <div class="icon-glow"></div>
+                            </div>
+                            <div class="resume-info">
+                                <h3 data-key="resume.download">Download Resume</h3>
+                                <p data-key="resume.updated">Last updated: August 2024</p>
+                            </div>
+                        </div>
+                        
+                        <div class="resume-actions-3d">
+                            <button class="btn-3d btn-primary-3d" id="downloadResume">
+                                <span class="btn-content">
+                                    <i class="fas fa-download"></i>
+                                    <span data-key="resume.downloadBtn">Download PDF</span>
+                                </span>
+                                <div class="btn-glow"></div>
+                            </button>
+                            <button class="btn-3d btn-secondary-3d" id="viewResume">
+                                <span class="btn-content">
+                                    <i class="fas fa-eye"></i>
+                                    <span data-key="resume.viewBtn">Preview</span>
+                                </span>
+                                <div class="btn-glow"></div>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="resume-preview-3d" id="resumePreview">
+                        <div class="preview-frame">
+                            <div class="frame-glow"></div>
+                            <div class="resume-viewer">
+                                <p data-key="resume.noPreview">Resume preview will be displayed here</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section with 3D Flipping Form -->
+        <section id="contact" class="section contact-section-3d">
+            <div class="container">
+                <h2 class="section-title-3d" data-key="contact.title">Get In Touch</h2>
+                
+                <div class="contact-content-3d">
+                    <div class="contact-form-wrapper-3d">
+                        <div class="form-card-3d" id="contactCard">
+                            <div class="card-side front-side">
+                                <div class="card-glow"></div>
+                                <form class="contact-form-3d" id="contactForm">
+                                    <div class="form-group-3d">
+                                        <label for="contactName" class="form-label-3d" data-key="contact.name">Name</label>
+                                        <div class="input-wrapper-3d">
+                                            <input type="text" id="contactName" class="form-control-3d" required>
+                                            <div class="input-glow"></div>
+                                        </div>
+                                        <div class="error-message-3d" id="nameError"></div>
+                                    </div>
+                                    
+                                    <div class="form-group-3d">
+                                        <label for="contactEmail" class="form-label-3d" data-key="contact.email">Email</label>
+                                        <div class="input-wrapper-3d">
+                                            <input type="email" id="contactEmail" class="form-control-3d" required>
+                                            <div class="input-glow"></div>
+                                        </div>
+                                        <div class="error-message-3d" id="emailError"></div>
+                                    </div>
+                                    
+                                    <div class="form-group-3d">
+                                        <label for="contactMessage" class="form-label-3d" data-key="contact.message">Message</label>
+                                        <div class="input-wrapper-3d">
+                                            <textarea id="contactMessage" class="form-control-3d" rows="6" required minlength="20"></textarea>
+                                            <div class="input-glow"></div>
+                                        </div>
+                                        <div class="error-message-3d" id="messageError"></div>
+                                        <div class="character-count-3d">
+                                            <span id="charCount">0</span>/20 <span data-key="contact.minChars">minimum characters</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <button type="submit" class="btn-3d btn-primary-3d btn-full-width">
+                                        <span class="btn-content">
+                                            <i class="fas fa-paper-plane"></i>
+                                            <span data-key="contact.send">Send Message</span>
+                                        </span>
+                                        <div class="btn-glow"></div>
+                                    </button>
+                                </form>
+                            </div>
+                            
+                            <div class="card-side back-side">
+                                <div class="card-glow"></div>
+                                <div class="success-message">
+                                    <i class="fas fa-check-circle"></i>
+                                    <h3>Message Sent!</h3>
+                                    <p>Thank you for reaching out. I'll get back to you soon!</p>
+                                    <button class="btn-3d btn-secondary-3d" id="sendAnother">
+                                        <span class="btn-content">Send Another</span>
+                                        <div class="btn-glow"></div>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="messages-sidebar-3d">
+                        <div class="sidebar-card-3d">
+                            <div class="card-glow"></div>
+                            <h3 data-key="contact.recent">Recent Messages</h3>
+                            <div id="messagesList" class="messages-list-3d">
+                                <!-- Messages will be dynamically populated -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 3D Project Modal with Rotating Carousel -->
+    <div class="modal-3d hidden" id="projectModal">
+        <div class="modal-overlay-3d" id="modalOverlay"></div>
+        <div class="modal-container-3d">
+            <div class="modal-content-3d">
+                <div class="modal-header-3d">
+                    <h2 id="modalTitle"></h2>
+                    <button class="modal-close-3d" id="modalClose" aria-label="Close modal">
+                        <i class="fas fa-times"></i>
+                        <div class="close-glow"></div>
+                    </button>
+                </div>
+                
+                <div class="modal-body-3d">
+                    <div class="project-details-3d">
+                        <p id="modalDescription"></p>
+                        
+                        <div class="project-tech-3d">
+                            <h4 data-key="projects.techStack">Tech Stack</h4>
+                            <div id="modalTechTags" class="tech-tags-3d"></div>
+                        </div>
+                        
+                        <div class="project-links-3d">
+                            <a id="modalRepoLink" href="#" target="_blank" class="btn-3d btn-secondary-3d" style="display: none;">
+                                <span class="btn-content">
+                                    <i class="fab fa-github"></i>
+                                    <span data-key="projects.viewCode">View Code</span>
+                                </span>
+                                <div class="btn-glow"></div>
+                            </a>
+                            <a id="modalLiveLink" href="#" target="_blank" class="btn-3d btn-primary-3d" style="display: none;">
+                                <span class="btn-content">
+                                    <i class="fas fa-external-link-alt"></i>
+                                    <span data-key="projects.liveDemo">Live Demo</span>
+                                </span>
+                                <div class="btn-glow"></div>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="carousel-3d" id="projectCarousel">
+                        <div class="carousel-container">
+                            <div class="carousel-slides" id="carouselSlides">
+                                <!-- Carousel slides will be dynamically generated -->
+                            </div>
+                            <button class="carousel-btn prev-btn" id="carouselPrev">
+                                <i class="fas fa-chevron-left"></i>
+                            </button>
+                            <button class="carousel-btn next-btn" id="carouselNext">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notifications with 3D Effects -->
+    <div class="toast-container-3d" id="toastContainer"></div>
+
+    <!-- 3D Floating Scroll to Top Orb -->
+    <div class="scroll-top-3d" id="scrollTop">
+        <div class="orb-container">
+            <div class="orb-core">
+                <i class="fas fa-arrow-up"></i>
+            </div>
+            <div class="orb-glow"></div>
+            <div class="orb-rings">
+                <div class="ring ring-1"></div>
+                <div class="ring ring-2"></div>
+                <div class="ring ring-3"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer-3d">
+        <div class="container">
+            <div class="footer-content-3d">
+                <p>&copy; 2024 Anshu Beniwal. <span data-key="footer.rights">All rights reserved.</span></p>
+                <div class="footer-socials-3d">
+                    <a href="https://github.com/anshu-beniwal" target="_blank" class="social-sphere" aria-label="GitHub">
+                        <i class="fab fa-github"></i>
+                        <div class="sphere-glow"></div>
+                    </a>
+                    <a href="https://linkedin.com/in/anshu-beniwal" target="_blank" class="social-sphere" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin"></i>
+                        <div class="sphere-glow"></div>
+                    </a>
+                    <a href="https://anshu-beniwal.dev" target="_blank" class="social-sphere" aria-label="Website">
+                        <i class="fas fa-globe"></i>
+                        <div class="sphere-glow"></div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Main JavaScript -->
+    <script src="app.js"></script>
+</body>
+</html>
